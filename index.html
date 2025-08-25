@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Paga fácil Bancolombia</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #ffcc00;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: #000;
+    }
+    .box {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .copied {
+      margin-top: 1rem;
+      color: green;
+      font-weight: bold;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Cuenta copiada ✅</h1>
+    <p>Tu número Bancolombia ya está en el portapapeles:</p>
+    <p><b>91250487741</b></p>
+    <p class="copied" id="msg">✅ ¡Número copiado!</p>
+  </div>
+  <script>
+    async function copyNumber() {
+      try {
+        await navigator.clipboard.writeText("91250487741");
+        document.getElementById("msg").style.display = "block";
+      } catch (err) {
+        console.error("No se pudo copiar: ", err);
+      }
+    }
+    copyNumber();
+  </script>
+</body>
+</html>
