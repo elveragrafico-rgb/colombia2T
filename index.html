@@ -2,53 +2,97 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Paga fácil Bancolombia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuenta Bancolombia</title>
   <style>
     body {
+      margin: 0;
+      font-family: 'Arial Black', sans-serif;
+      color: white;
+      text-align: center;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: #ffcc00;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      color: #000;
+      /*  Fondo con tu imagen desde Drive */
+      /* Prueba primero con este: */
+      /* background-image: url('https://drive.google.com/uc?export=view&id=1MEOXPahJMokARIucrghuAwlr6kXDwhK3'); */
+      /* Si no carga bien, prueba este: */
+      background-image: url('https://lh3.googleusercontent.com/d/1MEOXPahJMokARIucrghuAwlr6kXDwhK3');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
-    .box {
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    .overlay {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 75%;
+      animation: zoomIn 1s ease;
+      border: 2px solid #00ccff;
+      box-shadow: 0 0 10px #00ccff, 0 0 20px #00ccff, 0 0 40px #00ccff;
     }
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
-    .copied {
-      margin-top: 1rem;
-      color: green;
+    h1 { font-size: 1.4rem; margin-bottom: 10px; text-transform: uppercase;
+         color: #ffcc00; text-shadow: 2px 2px 6px black; }
+    p { font-size: 1.05rem; margin-bottom: 12px; color: #ffffff;
+        text-shadow: 1px 1px 3px black; }
+    #cuenta {
+      font-size: 1.6rem; font-weight: bold; color: #00ccff;
+      text-shadow:
+        0 0 5px #00ccff,
+        0 0 10px #00ccff,
+        0 0 20px #00ccff,
+        0 0 40px #00ccff,
+        0 0 80px #00ccff;
+      animation: brillo 2s infinite alternate;
+    }
+    @keyframes brillo {
+      from { text-shadow: 0 0 10px #00ccff, 0 0 20px #00ccff; }
+      to { text-shadow: 0 0 20px #00ccff, 0 0 40px #00ccff, 0 0 80px #00ccff; }
+    }
+    .footer { margin-top: 8px; font-size: 0.75rem;
+              color: #ffcc00; text-shadow: 1px 1px 3px black; }
+    #mensaje {
+      display: none; position: fixed; bottom: 30px; left: 50%;
+      transform: translateX(-50%);
+      background: #00ffcc; color: black;
+      padding: 10px 20px; border-radius: 10px;
       font-weight: bold;
-      display: none;
+      box-shadow: 0 0 10px #00ffcc;
+      z-index: 1000;
+      animation: subir 2s ease forwards;
+    }
+    @keyframes subir {
+      0%   { opacity: 0; transform: translate(-50%, 20px); }
+      20%  { opacity: 1; transform: translate(-50%, 0); }
+      80%  { opacity: 1; transform: translate(-50%, -10px); }
+      100% { opacity: 0; transform: translate(-50%, -30px); }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h1>Cuenta copiada ✅</h1>
-    <p>Tu número Bancolombia ya está en el portapapeles:</p>
-    <p><b>91250487741</b></p>
-    <p class="copied" id="msg">✅ ¡Número copiado!</p>
+  <div class="overlay">
+    <h1>🏍️ Cuenta Bancolombia 🏁</h1>
+    <p>Tu número ya está en el portapapeles</p>
+    <p id="cuenta">91250487741</p>
+    <div class="footer">By Colombia2T</div>
   </div>
+  <div id="mensaje">✅ Copiado al portapapeles</div>
   <script>
-    async function copyNumber() {
-      try {
-        await navigator.clipboard.writeText("91250487741");
-        document.getElementById("msg").style.display = "block";
-      } catch (err) {
-        console.error("No se pudo copiar: ", err);
-      }
-    }
-    copyNumber();
+    window.onload = function() {
+      const cuenta = document.getElementById("cuenta").innerText;
+      navigator.clipboard.writeText(cuenta).then(() => {
+        const msg = document.getElementById("mensaje");
+        msg.style.display = "block";
+        setTimeout(() => msg.style.display = "none", 2000);
+      }).catch(err => {
+        console.error("Error al copiar automáticamente:", err);
+      });
+    };
   </script>
 </body>
 </html>
